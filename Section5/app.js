@@ -2,29 +2,25 @@ const http=require('http')
 const express=require('express')
 const bodyParser=require('body-parser')
 
+const adminRoutes=require('./routes/admin')
+const shopRoutes=require('./routes/shop')
+const path = require('path')
+
 const PORT=process.env.PORT || 5000
 
 const app=express()
 
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(express.static(path.join(__dirname,'public'))) // serving static files
 
-app.use((req,res,next)=>{
-    //console.log("This always runs")
-    next()
+app.use("/admin",adminRoutes)
+app.use("/shop",shopRoutes)
+
+app.use((req,res)=>{
+    res.status(404).send("<h1>404 not found</h1>")
 })
 
-app.use("/add",(req,res,next)=>{
-    res.send(`<form action="/product" method="POST"><input type="text" name="title"/><button type="submit">Submit</button></form>`)
-})
 
-app.post("/product",(req,res)=>{
-    console.log(req.body)
-    res.redirect("/")
-})
-
-app.use("/",(req,res)=>{
-    res.send("Home")
-})
 app.listen(PORT,()=>{
     console.log("server up on port ",PORT)
 })
