@@ -3,14 +3,16 @@ const path=require('path')
 
 const router=express.Router()
 
+const products=[]
 
 router.get("/add",(req,res,next)=>{
-    res.send(path.join(__dirname,'../','views','admin.html'))
+    res.sendFile(path.join(__dirname,'../','views','add.html'))
 })
 
 router.post("/add",(req,res)=>{
     console.log(req.body)
-    res.redirect("/")
+    products.push({"title":req.body.title,})
+    res.redirect("/shop")
 })
 
-module.exports=router
+module.exports={router,products}
