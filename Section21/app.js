@@ -13,6 +13,7 @@ const { user, password } = require('../Section12/util/credentials');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
+const { user, password } = require('../Section12/util/credentials');
 const MONGODB_URI =
 `mongodb+srv://${user}:${password}@cluster0.vbn87.mongodb.net/myFirstDatabase`;
 
